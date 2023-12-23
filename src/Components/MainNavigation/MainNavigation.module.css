@@ -1,0 +1,74 @@
+.nav a{
+    text-decoration: none;
+    color: rgb(193, 194, 197);
+}
+.nav{
+    position: fixed;
+}
+.nav__header{
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    background-color: rgb(26, 27, 30);
+    border-bottom: 1px solid rgb(44, 46, 51);
+    color: rgb(166, 167, 171);
+    font-size: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+}
+.nav__header h1{
+    font-weight: 400;
+}
+.nav__header span{
+    font-size: 1.8rem;
+    margin: 0 0.5rem;
+}
+.nav__ul{
+    width: 20rem;
+    height: 100vh;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    background-color: rgb(26, 27, 30);
+    border-right: 1px solid rgb(44, 46, 51);
+    padding: 16px;
+    padding-top: 2rem;
+}
+.nav__ul li{
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    border: 0px;
+    appearance: none;
+    font-size: 1.1rem;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 3rem;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}
+.nav__ul li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.nav__ul li a > *{
+    vertical-align: middle;
+}
+.nav__ul li a span{
+    margin: 0 1rem;
+}
+.nav__ul li a svg{
+    color: rgb(165, 216, 255);
+}
+.nav__ul li:hover{
+    background-color: rgb(37, 38, 43);
+}
