@@ -1,12 +1,16 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import MainNavigation from "../Components/MainNavigation/MainNavigation";
 
 const Root = () => {
   return (
-    <div>
+    <main>
+      <MainNavigation />
+      <div style={{margin: "70px 0 0 20rem"}}>
         <Outlet />
-    </div>
-  )
-}
+      </div>
+    </main>
+  );
+};
 
-export default Root
+export default Root;
