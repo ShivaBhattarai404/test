@@ -1,0 +1,94 @@
+.section {
+  padding: 4rem 5rem;
+}
+.balance {
+  font-size: 35px;
+  line-height: 1.55;
+  text-decoration: none;
+  font-weight: 700;
+  color: rgb(166, 167, 171);
+  margin-bottom: 20px;
+}
+
+/* card styles */
+.card {
+  width: 30rem;
+  margin-right: 2rem;
+  padding: 0;
+  transition: 0.2s ease;
+  cursor: pointer;
+  padding: 1.5rem;
+  text-align: center;
+  display: inline-block;
+}
+.card__title {
+  font-size: 3rem;
+  margin-top: 2rem;
+}
+.card__deposit,
+.card__expenses {
+  text-wrap: balance;
+  font-size: 1.8rem;
+  line-height: 1.55;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+.card__deposit {
+  color: rgb(105, 219, 124);
+}
+.card__expenses {
+  color: rgb(255, 135, 135);
+}
+
+.addExpenseBtn {
+  translate: 100% 0;
+}
+.addExpenseBtn__icon {
+  margin: 0 0.5rem;
+  vertical-align: middle;
+}
+
+/* transaction history */
+.history{
+  width: 40rem;
+  margin: 2rem 0;
+}
+.history__title {
+  font-size: 1.5rem;
+  line-height: 1.55;
+  text-decoration: none;
+  color: rgb(193, 194, 197);
+}
+.history__item {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-right: 4px solid rgb(105, 219, 124);
+  color: rgb(193, 194, 197);
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px,
+    rgba(0, 0, 0, 0.05) 0px 10px 15px -5px, rgba(0, 0, 0, 0.04) 0px 7px 7px -5px;
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(37, 38, 43);
+  padding: 16px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.history__item__name {
+  color: inherit;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  text-decoration: none;
+  font-weight: 500;
+}
+.history__item__amount {
+  font-size: 1.2rem;
+  color: rgb(105, 219, 124);
+  line-height: 1.55;
+  text-decoration: none;
+  font-weight: 500;
+}
