@@ -41,8 +41,11 @@
   color: rgb(255, 135, 135);
 }
 
-.addExpenseBtn {
-  translate: 100% 0;
+.section .addExpenseBtn {
+  display: block;
+  margin: 1rem auto;
+  font-size: 1.2rem;
+  padding: 0.8em 2.8rem;
 }
 .addExpenseBtn__icon {
   margin: 0 0.5rem;
@@ -92,3 +95,32 @@
   text-decoration: none;
   font-weight: 500;
 }
+
+
+.modal__deleteBtn{
+  color: rgb(255, 100, 100);
+  cursor: pointer;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2rem;
+  position: absolute;
+  transition: .2s;
+}
+.modal__deleteBtn:hover{
+  transform: scale(1.2);
+}
+.modal__ul{
+  list-style: none;
+  font-size: 1.2rem;
+}
+.modal__ul li{
+  line-height: 1.6rem;
+}
+.modal__ul__name{
+  font-weight: 500;
+}
+.modal__ul__value{
+  color: #aaa;
+  margin: 0 5px;
+}
+
