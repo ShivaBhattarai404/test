@@ -3,7 +3,7 @@ import Root from "./Pages/Root";
 import Error from "./Pages/Error";
 import Home from "./Pages/Home";
 import NewLabel from "./Pages/NewLabel";
-import Label from "./Pages/Label";
+import Label, {action as labelAction} from "./Pages/Label";
 
 function App() {
   const routes = createBrowserRouter([
@@ -22,7 +22,8 @@ function App() {
         },
         {
           path: "/label/:labelId",
-          element: <Label />
+          element: <Label />,
+          action: labelAction,
         }
       ]
     }
