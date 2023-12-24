@@ -1,0 +1,76 @@
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal {
+  width: 30rem;
+  min-height: 20rem;
+  padding: 1rem 1.5rem;
+  padding-bottom: 3rem;
+  position: fixed;
+  top: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  color: rgb(193, 194, 197);
+  background-color: rgb(36, 37, 40);
+  z-index: 101;
+  transition: 250ms ease center center;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 3px,
+    rgba(0, 0, 0, 0.5) 0px 28px 23px -7px,
+    rgba(0, 0, 0, 0.4) 0px 12px 12px -7px;
+  animation: modal .2s ease-in-out;
+  transform-origin: -10% 50%;
+}
+@keyframes modal {
+  from{
+    scale: 0;
+    opacity: 0.5;
+  }
+  to{
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+.modal__title{
+    color: #ddd;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    line-height: 1.55;
+    margin-right: 16px;
+    text-overflow: ellipsis;
+    display: block;
+    word-break: break-word;
+    font-size: 1.3rem;
+}
+.modal__btnWrapper{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    justify-content: flex-end;
+}
+.modal__btnWrapper button:hover{
+  opacity: 0.6;
+}
+.modal__btnWrapper .okBtn,
+.modal__btnWrapper .cancelBtn{
+    margin: 0 0.5rem;
+}
+
+
+.modal__content{
+  margin: 1rem 0;
+  margin-bottom: 3rem;
+  height: fit-content;
+  height: 15rem;
+  max-height: 20rem;
+}
