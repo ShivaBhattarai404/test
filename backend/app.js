@@ -1,9 +1,9 @@
 const express = require('express');
 
+const userRoutes = require("./routes/user");
+
 const app = express();
 
-app.use((req, res)=>{
-    res.send("<h1>Server is running at port 8080</h1>")
-})
+app.use(userRoutes);
 
 app.listen(8080);
