@@ -6,28 +6,31 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-app.use((req, res, next)=>{
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, PATCH');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, DELETE, PUT, PATCH"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
 });
 
-app.get('/new', (req, res, next)=>{
-    res.status(200).json({msg: "Its a get request from /new"})
-})
-app.use(bodyParser.json())
+app.get("/new", (req, res, next) => {
+  res.status(200).json({ msg: "Its a get request from /new" });
+});
+app.use(bodyParser.json());
 app.use(userRoutes);
 
-app.use((err, req, res, next)=>{
-    res.status(500).json({message: "Some server error Occured", error: err.message})
-})
-
+app.use((err, req, res, next) => {
+  const message = err.message || "Some Sever Error Occured";
+  const statusCode = err.status || 500;
+  const data = err.data || [];
+  res.status(statusCode).json({ message, data });
+});
 
 mongoose
-  .connect(
-    "mongodb://127.0.0.1/expensesTracker"
-  )
+  .connect("mongodb://127.0.0.1/expensesTracker")
   .then((result) => {
     app.listen(8080);
   })

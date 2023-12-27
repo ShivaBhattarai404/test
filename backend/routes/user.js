@@ -6,22 +6,43 @@ const userController = require("../Controllers/User");
 
 const router = express.Router();
 
+router.post(
+  "/login",
+  [
+    body("email").trim().isEmail().withMessage("Please enter a valid email"),
+    body("password")
+      .trim()
+      .isLength({ min: 5 })
+      .withMessage("Password should be 6 characters long"),
+  ],
+  userController.login
+);
+
 router.put(
   "/signup",
   [
-    body("username").not().isEmpty().withMessage("UserName should not be empty").custom(async(value, {req})=>{
-        const username = await User.findOne({username: value});
-        if(username){
-            return Promise.reject("This username already exits. Try others")
+    body("username")
+      .not()
+      .isEmpty()
+      .withMessage("UserName should not be empty")
+      .custom(async (value, { req }) => {
+        const username = await User.findOne({ username: value });
+        if (username) {
+          return Promise.reject("This username already exits. Try others");
         }
-    }),
+      }),
     body("name").not().isEmpty().withMessage("Name should not be empty"),
-    body("email").trim().isEmail().withMessage("Please enter a valid email").custom(async(value, {req})=>{
-        const user = await User.findOne({email: value});
-        if(user){
-            return Promise.reject("Email already exits");
+    body("email")
+      .trim()
+      .isEmail()
+      .withMessage("Please enter a valid email")
+      .custom(async (value, { req }) => {
+        const user = await User.findOne({ email: value });
+        if (user) {
+          return Promise.reject("Email already exits");
         }
-    }).normalizeEmail(),
+      })
+      .normalizeEmail(),
     body("password")
       .trim()
       .isLength({ min: 6 })
