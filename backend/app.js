@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const userRoutes = require("./routes/user");
+const expensesRoutes = require("./routes/expenses");
 
 const app = express();
 
@@ -20,7 +21,9 @@ app.get("/new", (req, res, next) => {
   res.status(200).json({ msg: "Its a get request from /new" });
 });
 app.use(bodyParser.json());
+
 app.use(userRoutes);
+app.use(expensesRoutes);
 
 app.use((err, req, res, next) => {
   const message = err.message || "Some Sever Error Occured";
