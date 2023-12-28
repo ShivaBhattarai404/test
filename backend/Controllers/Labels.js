@@ -1,3 +1,5 @@
+const { validationResult } = require("express-validator");
+
 const Expenses = require("../Model/Expenses");
 const User = require("../Model/User");
 const Label = require("../Model/Labels");
@@ -15,6 +17,13 @@ exports.getLabels = async (req, res, next) => {
 };
 
 exports.addLabel = async (req, res, next) => {
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    const error = new Error("Validation Error");
+    error.status = 403;
+    error.data = validationErrors.array().map((err) => err.msg);
+    return next(error);
+  }
   const name = req.body.name;
   const budget = req.body.budget;
 
@@ -36,6 +45,13 @@ exports.addLabel = async (req, res, next) => {
 };
 
 exports.editLabel = async (req, res, next) => {
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    const error = new Error("Validation Error");
+    error.status = 403;
+    error.data = validationErrors.array().map((err) => err.msg);
+    return next(error);
+  }
   const name = req.body.name;
   const budget = req.body.budget;
 

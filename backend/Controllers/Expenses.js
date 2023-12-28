@@ -1,3 +1,5 @@
+const { validationResult } = require("express-validator");
+
 const Expenses = require("../Model/Expenses");
 const Label = require("../Model/Labels");
 
@@ -14,6 +16,13 @@ exports.getExpenses = async (req, res, next) => {
 };
 
 exports.addExpense = async (req, res, next) => {
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    const error = new Error("Validation Error");
+    error.status = 403;
+    error.data = validationErrors.array().map((err) => err.msg);
+    return next(error);
+  }
   const name = req.body.name;
   const amount = req.body.amount;
 
@@ -39,16 +48,18 @@ exports.deleteExpense = async (req, res, next) => {
 
   try {
     // remove expense from its label
-  req.label.expenses = req.label.expenses.filter((expense) => expense !== expenseId);
-  await req.label.save();
+    req.label.expenses = req.label.expenses.filter(
+      (expense) => expense !== expenseId
+    );
+    await req.label.save();
 
-  // delete expense from expenses collection
-  const expense = await Expenses.findByIdAndDelete(expenseId);
+    // delete expense from expenses collection
+    const expense = await Expenses.findByIdAndDelete(expenseId);
 
-  res.status(200).json({
-    message: "expense deleted successfully",
-    deletedExpense: expense,
-  });
+    res.status(200).json({
+      message: "expense deleted successfully",
+      deletedExpense: expense,
+    });
   } catch (error) {
     error.message = "Invalid Expense Id";
     error.status = 400;
