@@ -66,7 +66,7 @@ exports.signUp = async (req, res, next) => {
       name: name,
       email: email,
       password: hashedPw,
-      expenses: [],
+      labels: [],
     });
 
     const responseUser = await user.save();

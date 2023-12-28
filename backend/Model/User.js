@@ -1,5 +1,5 @@
 const { Schema, default: mongoose } = require("mongoose");
-const Expenses = require("./Expenses");
+const Label = require("./Labels");
 
 const UserSchema = new Schema({
   name: {
@@ -14,7 +14,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  expenses: [{ type: Schema.ObjectId, ref: Expenses }],
+  labels: [{ type: Schema.ObjectId, ref: Label }],
 });
 
 module.exports = mongoose.model("User", UserSchema);
