@@ -25,6 +25,10 @@ app.use(bodyParser.json());
 app.use(userRoutes);
 app.use(expensesRoutes);
 
+app.use((req, res)=>{
+  res.status(404).json({message: "Requested URL not found on the server"});
+})
+
 app.use((err, req, res, next) => {
   const message = err.message || "Some Sever Error Occured";
   const statusCode = err.status || 500;
