@@ -2,8 +2,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./Pages/Root";
 import Error from "./Pages/Error";
 import Home from "./Pages/Home";
-import NewLabel, {action as newLabelAction} from "./Pages/NewLabel";
-import Label, {action as labelAction} from "./Pages/Label";
+import NewLabel, { action as newLabelAction } from "./Pages/NewLabel";
+import Label, { action as labelAction } from "./Pages/Label";
+import Login, { action as loginAction } from "./Pages/Login";
 
 function App() {
   const routes = createBrowserRouter([
@@ -14,7 +15,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <Home />
+          element: <Home />,
         },
         {
           path: "/new",
@@ -25,13 +26,17 @@ function App() {
           path: "/label/:labelId",
           element: <Label />,
           action: labelAction,
-        }
-      ]
-    }
-  ])
-  return (
-    <RouterProvider router={routes} />
-  );
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: <Login />,
+      errorElement: <Error />,
+      action: loginAction,
+    },
+  ]);
+  return <RouterProvider router={routes} />;
 }
 
 export default App;
