@@ -17,9 +17,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/new", (req, res, next) => {
-  res.status(200).json({ msg: "Its a get request from /new" });
-});
 app.use(bodyParser.json());
 
 app.use(userRoutes);

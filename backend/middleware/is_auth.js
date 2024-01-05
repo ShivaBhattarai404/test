@@ -8,6 +8,12 @@ module.exports = (req, res, next) => {
     return next(error);
   }
   const token = authHeader.split(" ")[1];
+  
+  if (!token || token==="null") {
+    const error = new Error("Not Authenticated");
+    error.status = 401;
+    return next(error);
+  }
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, "kerwani123");
