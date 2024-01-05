@@ -8,23 +8,36 @@ import { Link } from "react-router-dom";
 const Label = (props) => {
   return (
     <Card className={classes.card}>
-      <Link to="/label/djfgjhf">
-        <div className={classes.card__title}>January{props.id}</div>
-        <div className={classes.card__deposit}>Deposit: Rs 6000/-</div>
-        <div className={classes.card__expenses}>Expenses: Rs 3000/-</div>
+      <Link to={`/label/${props.id}`}>
+        <div className={classes.card__title}>{props.name}</div>
+        <div className={classes.card__deposit}>
+          Deposit: Rs {props.budget}/-
+        </div>
+        <div className={classes.card__expenses}>
+          Expenses: Rs {props.budget}/-
+        </div>
       </Link>
     </Card>
   );
 };
-const Home = () => {
+const Home = (props) => {
   return (
     <div className={classes.home}>
       <h1>Months</h1>
       <div className={classes.labelWrapper}>
-        <Label id='1' />
-        <Label id='2' />
-        <Label id='3' />
-        <Label id='4' />
+        {props.labels.length > 0 ? (
+          props.labels.map((label) => (
+            <Label
+              key={label._id}
+              id={label._id}
+              name={label.name}
+              budget={label.budget}
+              expenses={label.expenses}
+            />
+          ))
+        ) : (
+          <h1>No Labels Found</h1>
+        )}
       </div>
     </div>
   );

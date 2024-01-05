@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Root from "./Pages/Root";
+import Root, {loader as routerLoader} from "./Pages/Root";
 import Error from "./Pages/Error";
-import Home from "./Pages/Home";
+import Home, {loader as homeLoader} from "./Pages/Home";
 import NewLabel, { action as newLabelAction } from "./Pages/NewLabel";
 import Label, { action as labelAction } from "./Pages/Label";
 import Login, { action as loginAction } from "./Pages/Login";
@@ -12,10 +12,12 @@ function App() {
       path: "/",
       element: <Root />,
       errorElement: <Error />,
+      loader: routerLoader,
       children: [
         {
           index: true,
           element: <Home />,
+          loader: homeLoader,
         },
         {
           path: "/new",
