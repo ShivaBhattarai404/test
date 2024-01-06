@@ -25,6 +25,7 @@ router.put(
         if (value < 0) {
           return Promise.reject("Expense amount should not be negative");
         }
+        return true;
       }),
   ],
   expensesController.addExpense
@@ -44,6 +45,7 @@ router.put(
         if (value < 0) {
           return Promise.reject("Label budget should not be negative");
         }
+        return true;
       }),
   ],
   labelController.addLabel
@@ -62,6 +64,7 @@ router.patch(
         if (value < 0) {
           return Promise.reject("Label budget should not be negative");
         }
+        return true;
       }),
   ],
   labelController.editLabel
