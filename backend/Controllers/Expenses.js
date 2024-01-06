@@ -45,13 +45,13 @@ exports.addExpense = async (req, res, next) => {
 
 exports.deleteExpense = async (req, res, next) => {
   const expenseId = req.body.id;
-
   try {
     // remove expense from its label
     req.label.expenses = req.label.expenses.filter(
-      (expense) => expense !== expenseId
+      (expense) => expense.toString() !== expenseId.toString()
     );
     await req.label.save();
+    console.log(req.label.expenses);
 
     // delete expense from expenses collection
     const expense = await Expenses.findByIdAndDelete(expenseId);
