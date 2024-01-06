@@ -20,7 +20,7 @@ const Button = (props) => {
   return (
     <button
       className={`${classes.btn} ${props.className ? props.className : ""} ${
-        props.animated =="true" && classes.animated
+        props.animated ==="true" && classes.animated
       } ${classnames}`}
       style={{ ...props.style }}
       onClick={props.onClick}

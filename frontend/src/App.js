@@ -3,7 +3,7 @@ import Root, {loader as routerLoader} from "./Pages/Root";
 import Error from "./Pages/Error";
 import Home, {loader as homeLoader} from "./Pages/Home";
 import NewLabel, { action as newLabelAction } from "./Pages/NewLabel";
-import Label, { action as labelAction } from "./Pages/Label";
+import Label, { action as labelAction, loader as labelLoader } from "./Pages/Label";
 import Login, { action as loginAction } from "./Pages/Login";
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
           path: "/label/:labelId",
           element: <Label />,
           action: labelAction,
+          loader: labelLoader,
         },
       ],
     },
