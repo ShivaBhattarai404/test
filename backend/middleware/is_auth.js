@@ -18,6 +18,8 @@ module.exports = (req, res, next) => {
   try {
     decodedToken = jwt.verify(token, "kerwani123");
   } catch (error) {
+    error.message = "Invalid token";
+    error.status = 400;
     return next(error);
   }
   if (!decodedToken) {
