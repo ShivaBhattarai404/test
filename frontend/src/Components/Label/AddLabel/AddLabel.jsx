@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./AddLabel.module.css";
 import { Form } from "react-router-dom";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
+import Modal from "../../UI/Modal/Modal";
 
 const AddLabel = () => {
   return (

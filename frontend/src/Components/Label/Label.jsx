@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { IoAddCircleOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
 import classes from "./Label.module.css";
 
@@ -9,6 +10,7 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
 import Input from "../UI/Input/Input";
+import { useNavigate } from "react-router-dom";
 
 function formatDate(date, format) {
   return format
@@ -29,6 +31,8 @@ const Label = (props) => {
   const [displayAddExpenseModal, setDisplayAddExpenseModal] = useState(false);
   const [modalData, setModalData] = useState({});
   const [errors, setErrors] = useState(null);
+  const [deleteModal, setDeleteModal] = useState({ status: false, data: {} });
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTransactions(props.expenses);
@@ -65,7 +69,10 @@ const Label = (props) => {
         );
       })
       .catch((err) => {
-        setErrors({message: "Failed to delete expense&"+err.message, status: err.status || 500})
+        setErrors({
+          message: "Failed to delete expense&" + err.message,
+          status: err.status || 500,
+        });
       });
     setDisplayModal(false);
     setModalData({});
@@ -79,7 +86,49 @@ const Label = (props) => {
   const addExpenseCanceler = () => {
     setDisplayAddExpenseModal(false);
   };
-
+  const deleteLabelHandler = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return setErrors({ status: 401, message: "Invalid token" });
+    }
+    if (!props.id) {
+      return setErrors({ status: 401, message: "Invalid Label Id" });
+    }
+    console.log("executed");
+    fetch("http://localhost:8080/label", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        labelId: props.id,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 400) {
+          return setErrors({
+            status: 400,
+            message: "Invalid Label Id or token",
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data?.label) {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        setErrors({
+          status: err.status || 500,
+          message:
+            "Failed to delete &" + err.message ||
+            "Error from delteLabelHandler",
+        });
+      });
+    setDeleteModal({ status: false, data: {} });
+  };
   return (
     <section className={classes.section}>
       {/* {props.id} */}
@@ -153,14 +202,47 @@ const Label = (props) => {
         <Modal
           title="Error Occured!!!"
           confirmText="Okay"
-          onConfirm={()=>setErrors(null)}
-          onCancel={()=>setErrors(null)}
+          onConfirm={() => setErrors(null)}
+          onCancel={() => setErrors(null)}
         >
           <h2>{[errors.status, " ", errors.message.split("&")[0]]}</h2>
           <h2>{errors.message.split("&")[1]}</h2>
         </Modal>
       )}
+      {deleteModal.status && (
+        <Modal
+          title="Deletion Confirmation"
+          confirmText="Delete"
+          onConfirm={deleteLabelHandler}
+          onCancel={() => {
+            setDeleteModal({ status: false, data: {} });
+          }}
+        >
+          <h1>Are you sure to delete</h1>
+        </Modal>
+      )}
       {/* Modals Ends */}
+
+      {/* Label Header starts */}
+      <div className={classes.heading}>
+        <h1>January</h1>
+        <div className={classes.heading__btnWrapper}>
+          <Button className={classes["heading__btn--edit"]} onClick={navigate.bind(null, "/")}>
+            <MdEdit />
+            <span>Edit</span>
+          </Button>
+          <Button
+            className={classes["heading__btn--delete"]}
+            onClick={() => {
+              setDeleteModal({ status: true, data: { id: "label1" } });
+            }}
+          >
+            <MdDelete />
+            <span>Delete</span>
+          </Button>
+        </div>
+      </div>
+      {/* Label Header ends */}
 
       <h1 className={classes.balance}>YOUR BALANCE IS: Rs 5995/-</h1>
       <Card className={classes.card}>

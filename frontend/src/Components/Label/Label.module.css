@@ -1,6 +1,60 @@
 .section {
   padding: 4rem 5rem;
+  padding-top: 0;
 }
+
+/* heading styles with edit delete btns starts here */
+.heading {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem 0;
+  padding-top: 2rem;
+}
+.heading h1 {
+  font-size: 2.2rem;
+}
+.heading__btnWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 20rem;
+}
+.heading__btnWrapper button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.heading__btnWrapper button:hover {
+  transform: translateY(-3px);
+}
+.heading__btnWrapper button:hover:active {
+  transform: translateY(-1px);
+}
+/* edit button */
+.heading__btn--edit {
+  background-color: green;
+}
+.heading__btnWrapper button > *{
+  margin-right: 0.3rem;
+}
+.heading__btn--edit:hover {
+  color: green;
+  background-color: #fff;
+  border: 1px solid green;
+}
+    /* delete button */
+.heading__btn--delete{
+  background-color: red;
+}
+.heading__btn--delete:hover{
+  color: red;
+  background-color: #fff;
+  border: 1px solid red;
+}
+/* heading styles with edit delete btns ends here */
+
 .balance {
   font-size: 35px;
   line-height: 1.55;
@@ -53,7 +107,7 @@
 }
 
 /* transaction history */
-.history{
+.history {
   width: 40rem;
   margin: 2rem 0;
 }
@@ -96,31 +150,29 @@
   font-weight: 500;
 }
 
-
-.modal__deleteBtn{
+.modal__deleteBtn {
   color: rgb(255, 100, 100);
   cursor: pointer;
   top: 1rem;
   right: 2rem;
   font-size: 2rem;
   position: absolute;
-  transition: .2s;
+  transition: 0.2s;
 }
-.modal__deleteBtn:hover{
+.modal__deleteBtn:hover {
   transform: scale(1.2);
 }
-.modal__ul{
+.modal__ul {
   list-style: none;
   font-size: 1.2rem;
 }
-.modal__ul li{
+.modal__ul li {
   line-height: 1.6rem;
 }
-.modal__ul__name{
+.modal__ul__name {
   font-weight: 500;
 }
-.modal__ul__value{
+.modal__ul__value {
   color: #aaa;
   margin: 0 5px;
 }
-
