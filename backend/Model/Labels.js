@@ -11,6 +11,10 @@ const Label = new Schema({
     type: String,
     required: true,
   },
+  totalExpense: {
+    type: Number,
+    default: 0,
+  },
   expenses: [{ type: Schema.ObjectId, ref: Expenses }],
 });
 

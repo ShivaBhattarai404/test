@@ -43,6 +43,7 @@ exports.addLabel = async (req, res, next) => {
     name: name,
     budget: budget,
     expenses: [],
+    totalExpense: 0,
   });
   try {
     const label = await newLabel.save();
@@ -90,7 +91,7 @@ exports.deleteLabel = async (req, res, next) => {
 
     // delete label from user record
     const user = await User.findById(req.userId);
-    user.labels = user.labels.filter((label) => label !== labelId);
+    user.labels = user.labels.filter((label) => label.toString() !== labelId.toString());
     await user.save();
 
     // delete label from label collection

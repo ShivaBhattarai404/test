@@ -7,7 +7,12 @@ exports.getExpenses = async (req, res, next) => {
   const labelId = req.params.labelId;
   try {
     const label = await Label.findById(labelId).populate("expenses");
-    res.status(200).json({ expenses: label.expenses });
+    res
+      .status(200)
+      .json({
+        label: { name: label.name, budget: label.budget, id: label._id },
+        expenses: label.expenses,
+      });
   } catch (error) {
     error.message = "Invalid label Id";
     error.status = 400;
@@ -34,6 +39,7 @@ exports.addExpense = async (req, res, next) => {
   try {
     const uploadedExpense = await expense.save();
     req.label.expenses.push(uploadedExpense);
+    req.label.totalExpense += uploadedExpense.amount;
     await req.label.save();
     res
       .status(201)
@@ -46,15 +52,15 @@ exports.addExpense = async (req, res, next) => {
 exports.deleteExpense = async (req, res, next) => {
   const expenseId = req.body.id;
   try {
+    // delete expense from expenses collection
+    const expense = await Expenses.findByIdAndDelete(expenseId);
+
     // remove expense from its label
     req.label.expenses = req.label.expenses.filter(
       (expense) => expense.toString() !== expenseId.toString()
     );
+    req.label.totalExpense -= expense.amount;
     await req.label.save();
-    console.log(req.label.expenses);
-
-    // delete expense from expenses collection
-    const expense = await Expenses.findByIdAndDelete(expenseId);
 
     res.status(200).json({
       message: "expense deleted successfully",
