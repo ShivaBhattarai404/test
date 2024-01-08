@@ -1,13 +1,16 @@
 import React from "react";
-import { json, useParams, useLoaderData } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 
 import LabelComponent from "../Components/Label/Label";
 
 const Label = () => {
-  const { labelId } = useParams();
   const data = useLoaderData();
-
-  return <LabelComponent id={labelId} expenses={data.expenses} />;
+  return (
+    <LabelComponent
+      expenses={data.expenses}
+      label={data.label}
+    />
+  );
 };
 
 export const loader = async ({ params }) => {
@@ -39,7 +42,10 @@ export const loader = async ({ params }) => {
       throw json({}, { status: response.status, statusText: errMessage });
     }
     const data = await response.json();
-    return json({ expenses: data.expenses });
+    return json({
+      label: data.label,
+      expenses: data.expenses,
+    });
   } catch (error) {
     throw json(
       {
@@ -69,11 +75,17 @@ export const action = async ({ params, request: req }) => {
       },
       body: JSON.stringify({ labelId, name, amount }),
     });
-    if(response.status === 401 || response.status === 400){
-      throw json({}, {status: response.status, statusText: "Invalid Token or LabelId"})
+    if (response.status === 401 || response.status === 400) {
+      throw json(
+        {},
+        { status: response.status, statusText: "Invalid Token or LabelId" }
+      );
     }
-    if(!response.ok){
-      throw json({}, {status: response.status, statusText: "Error response from server"})
+    if (!response.ok) {
+      throw json(
+        {},
+        { status: response.status, statusText: "Error response from server" }
+      );
     }
     await response.json();
     return null;

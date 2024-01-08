@@ -14,7 +14,7 @@ const Label = (props) => {
           Deposit: Rs {props.budget}/-
         </div>
         <div className={classes.card__expenses}>
-          Expenses: Rs {props.budget}/-
+          Expenses: Rs {props.totalExpense}/-
         </div>
       </Link>
     </Card>
@@ -33,6 +33,7 @@ const Home = (props) => {
               name={label.name}
               budget={label.budget}
               expenses={label.expenses}
+              totalExpense={label.totalExpense || 0}
             />
           ))
         ) : (

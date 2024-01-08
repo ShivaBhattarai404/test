@@ -34,6 +34,11 @@ const Label = (props) => {
   const [deleteModal, setDeleteModal] = useState({ status: false, data: {} });
   const navigate = useNavigate();
 
+  const totalExpenseAmount = transactions.reduce(
+    (amount, expense) => amount + expense.amount,
+    0
+  );
+
   useEffect(() => {
     setTransactions(props.expenses);
   }, [props.expenses]);
@@ -55,7 +60,7 @@ const Label = (props) => {
       },
       body: JSON.stringify({
         id: id,
-        labelId: props.id,
+        labelId: props.label.id,
       }),
     })
       .then((reponse) => {
@@ -86,15 +91,16 @@ const Label = (props) => {
   const addExpenseCanceler = () => {
     setDisplayAddExpenseModal(false);
   };
+
+  // Function for deleting label
   const deleteLabelHandler = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       return setErrors({ status: 401, message: "Invalid token" });
     }
-    if (!props.id) {
+    if (!props.label.id) {
       return setErrors({ status: 401, message: "Invalid Label Id" });
     }
-    console.log("executed");
     fetch("http://localhost:8080/label", {
       method: "DELETE",
       headers: {
@@ -102,7 +108,7 @@ const Label = (props) => {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-        labelId: props.id,
+        labelId: props.label.id,
       }),
     })
       .then((response) => {
@@ -131,7 +137,7 @@ const Label = (props) => {
   };
   return (
     <section className={classes.section}>
-      {/* {props.id} */}
+      {/* {props.label.id} */}
       {/* Modals start */}
       {displayModal && (
         <Modal
@@ -213,28 +219,29 @@ const Label = (props) => {
         <Modal
           title="Deletion Confirmation"
           confirmText="Delete"
+          confirmColor="red"
           onConfirm={deleteLabelHandler}
           onCancel={() => {
             setDeleteModal({ status: false, data: {} });
           }}
         >
-          <h1>Are you sure to delete</h1>
+          <h1>Are you sure to delete <i>"{props.label.name}"</i></h1>
         </Modal>
       )}
       {/* Modals Ends */}
 
       {/* Label Header starts */}
       <div className={classes.heading}>
-        <h1>January</h1>
+        <h1>{props.label.name}</h1>
         <div className={classes.heading__btnWrapper}>
-          <Button className={classes["heading__btn--edit"]} onClick={navigate.bind(null, "/")}>
+          <Button className={classes["heading__btn--edit"]} onClick={navigate.bind(null, "/new/"+props.label.id)}>
             <MdEdit />
             <span>Edit</span>
           </Button>
           <Button
             className={classes["heading__btn--delete"]}
             onClick={() => {
-              setDeleteModal({ status: true, data: { id: "label1" } });
+              setDeleteModal({ status: true });
             }}
           >
             <MdDelete />
@@ -244,14 +251,14 @@ const Label = (props) => {
       </div>
       {/* Label Header ends */}
 
-      <h1 className={classes.balance}>YOUR BALANCE IS: Rs 5995/-</h1>
+      <h1 className={classes.balance}>YOUR BALANCE IS: Rs {props.label.budget-totalExpenseAmount}/-</h1>
       <Card className={classes.card}>
         <div className={classes.card__title}>Budget</div>
-        <div className={classes.card__deposit}>Deposit: Rs 6000/-</div>
+        <div className={classes.card__deposit}>Deposit: Rs {props.label.budget}/-</div>
       </Card>
       <Card className={classes.card}>
         <div className={classes.card__title}>Expenses</div>
-        <div className={classes.card__expenses}>Expenses: Rs 3000/-</div>
+        <div className={classes.card__expenses}>Expenses: Rs {totalExpenseAmount}/-</div>
       </Card>
       <Button
         className={classes.addExpenseBtn}
