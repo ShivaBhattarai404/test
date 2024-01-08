@@ -33,6 +33,7 @@ router.put(
 router.delete("/expense", isAuth, hasLabel, expensesController.deleteExpense);
 
 router.get("/labels", isAuth, labelController.getLabels);
+router.get("/label/:labelId", isAuth, labelController.getLabel);
 router.put(
   "/label",
   isAuth,
@@ -55,7 +56,6 @@ router.patch(
   isAuth,
   hasLabel,
   [
-    body(),
     body("name").not().isEmpty().withMessage("Label name should not be empty"),
     body("budget")
       .isNumeric()

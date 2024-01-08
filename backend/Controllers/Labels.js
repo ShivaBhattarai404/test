@@ -4,12 +4,24 @@ const Expenses = require("../Model/Expenses");
 const User = require("../Model/User");
 const Label = require("../Model/Labels");
 
+exports.getLabel = async (req, res, next) => {
+  try {
+    const labelId = req.params.labelId;
+    const label = await Label.findById(labelId);
+    if (!label) {
+      const error = new Error("Invalid LabelId");
+      error.status = 404;
+      throw error;
+    }
+    res.status(200).json({label: label})
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getLabels = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId).populate("labels");
-    if (user.labels.length === 0) {
-      return res.status(404).json({ message: "No labels found", labels: [] });
-    }
     res.status(200).json({ message: "Labels Found", labels: user.labels });
   } catch (error) {
     return next(error);
