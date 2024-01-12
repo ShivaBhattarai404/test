@@ -18,15 +18,42 @@
     font-size: 16px;
     padding: 16px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 .nav__header h1{
     font-weight: 400;
 }
+.nav__header h1 *{
+    vertical-align: middle;
+}
 .nav__header span{
     font-size: 1.8rem;
     margin: 0 0.5rem;
 }
+.userBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+}
+.userBox__username{
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+}
+.logoutBtn:hover,
+.logoutBtn:active{
+    scale: 1.1;
+    background-color: #fff;
+    color: #222;
+}
+.logoutBtn:active{
+    scale: 1;
+}
+
+
+
 .nav__ul{
     width: 20rem;
     height: 100vh;
