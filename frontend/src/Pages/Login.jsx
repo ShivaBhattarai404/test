@@ -28,6 +28,7 @@ export const action = async ({ params, request: req }) => {
     const data = await response.json();
     
     localStorage.setItem("token", data.token);
+    localStorage.setItem("username", data.username);
     const expiryDate = new Date();
     expiryDate.setHours(new Date().getHours() + 1);
     localStorage.setItem("expiryDate", expiryDate.toISOString());

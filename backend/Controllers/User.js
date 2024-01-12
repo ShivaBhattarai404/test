@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: "Login Successfull", token, email: user.email });
+      .json({ message: "Login Successfull", token, email: user.email, username: user.name });
   } catch (error) {
     return next(error);
   }

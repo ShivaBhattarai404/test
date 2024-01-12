@@ -12,6 +12,8 @@ const MainNavigation = () => {
   const [modal, setModal] = useState(null);
   const navigate = useNavigate();
 
+  const username = localStorage.getItem("username");
+
   const logoutHandler = () =>{
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
@@ -33,7 +35,7 @@ const MainNavigation = () => {
           <span>Expense Tracker App</span>
         </h1>
         <div className={classes.userBox}>
-          <div className={classes.userBox__username}>Welcome! Shiva</div>
+          <div className={classes.userBox__username}>Welcome! {username}</div>
           <Button className={classes.logoutBtn} onClick={logoutBtnClickHandler}>Logout</Button>
         </div>
       </header>
