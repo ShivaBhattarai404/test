@@ -5,6 +5,7 @@ import Home, {loader as homeLoader} from "./Pages/Home";
 import NewLabel, { action as newLabelAction, loader as addLabelLoader } from "./Pages/NewLabel";
 import Label, { action as labelAction, loader as labelLoader } from "./Pages/Label";
 import Login, { action as loginAction } from "./Pages/Login";
+import SignUp, { action as signUpAction } from "./Pages/Signup";
 
 function App() {
   const routes = createBrowserRouter([
@@ -46,6 +47,12 @@ function App() {
       element: <Login />,
       errorElement: <Error />,
       action: loginAction,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+      errorElement: <Error />,
+      action: signUpAction,
     },
   ]);
   return <RouterProvider router={routes} />;

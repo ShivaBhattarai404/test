@@ -1,9 +1,10 @@
 import React from "react";
 import LoginComponent from "../Components/Login/Login";
-import { json, redirect } from "react-router-dom";
+import { json, redirect, useActionData } from "react-router-dom";
 
 const Login = () => {
-  return <LoginComponent />;
+  const errorData = useActionData()
+  return <LoginComponent error={errorData} />;
 };
 
 export const action = async ({ params, request: req }) => {
@@ -22,8 +23,12 @@ export const action = async ({ params, request: req }) => {
         password: password,
       }),
     });
-    if(response.status === 401 || response.status === 422){
-      throw json({message: "Not Authorized"}, {status: response.status});
+    if(response.status === 401){
+      return json({message: "Incorrect email or password", status: 401})
+    }
+    if(response.status === 422){
+      const data = await response.json();
+      return json({message: "Invalid Credientials", status: 422, data: data.data});
     }
     const data = await response.json();
     

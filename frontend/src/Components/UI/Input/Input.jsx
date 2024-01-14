@@ -16,13 +16,17 @@ const Input = (props) => {
         ) : (
           ""
         )}
+        {props.invalidText && <span className={classes.invalidText}> ({props.invalidText})</span>}
       </label>
       <input
+        className={props.invalid === true ? classes.invalid : ""}
         id={props.name}
         type={props.type || "text"}
         name={props.name}
         step={props.step}
-        defaultValue={props.value}
+        value={props.value || ""}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
       />
     </div>
   );

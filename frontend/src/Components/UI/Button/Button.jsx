@@ -14,6 +14,9 @@ const Button = (props) => {
     case "peace":
       classnames = classes.peace;
       break;
+    case "form":
+      classnames = classes.form;
+      break;
     default:
       classnames = "";
   }
@@ -21,9 +24,10 @@ const Button = (props) => {
     <button
       className={`${classes.btn} ${props.className ? props.className : ""} ${
         props.animated ==="true" && classes.animated
-      } ${classnames}`}
+      } ${classnames} ${props.disabled ? classes.disabled : ""}`}
       style={{ ...props.style }}
       onClick={props.onClick}
+      disabled={props.disabled || false}
     >
       {props.children}
     </button>

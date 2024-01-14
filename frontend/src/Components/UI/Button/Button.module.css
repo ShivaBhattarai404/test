@@ -1,48 +1,70 @@
-.btn{
-    display: block;
-    outline: none;
-    border: none;
-    padding: 0.5rem 1rem ;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-    background-color: rgb(50,50,50);
-    color: #fff;
-    border: 0.5px solid #555;
+.btn {
+  display: block;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  background-color: rgb(50, 50, 50);
+  color: #fff;
+  border: 0.5px solid #555;
 }
-.btn.animated:hover{
-    box-shadow: 0 3px 5px #888;
-    transform: translateY(-3px);
+.btn.animated:hover {
+  box-shadow: 0 3px 5px #888;
+  transform: translateY(-3px);
 }
-.btn.animated:active{
-    box-shadow: 0 0 3px #888;
-    transform: translateY(-1px);
+.btn.animated:active {
+  box-shadow: 0 0 3px #888;
+  transform: translateY(-1px);
 }
-.btn.danger{
-    background-color: rgb(255, 0, 0);
-    border-color: red;
-    color: #ddd;
+.btn.danger {
+  background-color: rgb(255, 0, 0);
+  border-color: red;
+  color: #ddd;
 }
-.btn.danger:hover{
-    background-color: rgb(180, 0, 0);
-    border-color: rgb(180, 0, 0);
+.btn.danger:hover {
+  background-color: rgb(180, 0, 0);
+  border-color: rgb(180, 0, 0);
 }
-.btn.success{
-    background-color: green;
-    border-color: green;
-    color: #ddd;
+.btn.success {
+  background-color: green;
+  border-color: green;
+  color: #ddd;
 }
-.btn.success:hover{
-    background-color: rgb(0, 100, 0);
-    border-color: rgb(0, 100, 0);
+.btn.success:hover {
+  background-color: rgb(0, 100, 0);
+  border-color: rgb(0, 100, 0);
 }
-.btn.peace{
-    background-color: blue;
-    border-color: blue;
-    color: #ddd;
+.btn.peace {
+  background-color: blue;
+  border-color: blue;
+  color: #ddd;
 }
-.btn.peace:hover{
-    background-color: rgb(0, 0, 180);
-    border-color: rgb(0, 0, 180);
+.btn.peace:hover {
+  background-color: rgb(0, 0, 180);
+  border-color: rgb(0, 0, 180);
+}
+.btn.form {
+  border: 1px solid #0066cc;
+  background-color: #0099cc;
+  color: #ffffff;
+}
+.btn.form:hover {
+  scale: 1.05;
+  color: #0099cc;
+  background-color: #fff;
+}
+.btn.form:hover:active {
+  scale: 1;
+}
+.btn.disabled,
+.btn.disabled:hover,
+.btn.disabled:active {
+    scale: unset;
+  cursor: not-allowed;
+  border: none;
+  color: #666;
+  background-color: #999;
 }

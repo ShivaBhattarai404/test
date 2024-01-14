@@ -9,7 +9,7 @@ exports.login = async (req, res, next) => {
 
   if (!validationErrors.isEmpty()) {
     const error = new Error("Invalid credientials");
-    error.status = 401;
+    error.status = 422;
     error.data = validationErrors.array().map((err) => err.msg);
     return next(error);
   }
@@ -52,7 +52,7 @@ exports.signUp = async (req, res, next) => {
   if (!error.isEmpty()) {
     return res.status(422).json({
       message: "Validation Error",
-      error: error.array().map((error) => error.msg),
+      data: error.array().map((error) => error.msg),
     });
   }
 
@@ -63,6 +63,7 @@ exports.signUp = async (req, res, next) => {
   try {
     const hashedPw = await bcrypt.hash(password, 12);
     const user = new User({
+      username: name,
       name: name,
       email: email,
       password: hashedPw,
@@ -79,6 +80,7 @@ exports.signUp = async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };

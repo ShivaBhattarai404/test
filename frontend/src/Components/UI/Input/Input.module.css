@@ -23,6 +23,18 @@
   transition: border-color 100ms ease 0s;
   margin: 0.5rem auto;
 }
+.inputWrapper input.invalid{
+  border: none;
+  outline: 1px solid rgb(255, 100, 100);
+  color: rgb(255, 100, 100);
+}
+.inputWrapper .invalidText{
+  color: rgb(255, 100, 100);
+}
+.inputWrapper input.invalid:focus{
+  outline-color: rgb(255, 100, 100);
+}
+
 .inputWrapper input::-webkit-inner-spin-button,
 .inputWrapper input::-webkit-outer-spin-button{
   appearance: none;

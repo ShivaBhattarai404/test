@@ -21,16 +21,6 @@ router.post(
 router.put(
   "/signup",
   [
-    body("username")
-      .not()
-      .isEmpty()
-      .withMessage("UserName should not be empty")
-      .custom(async (value, { req }) => {
-        const username = await User.findOne({ username: value });
-        if (username) {
-          return Promise.reject("This username already exits. Try others");
-        }
-      }),
     body("name").not().isEmpty().withMessage("Name should not be empty"),
     body("email")
       .trim()
