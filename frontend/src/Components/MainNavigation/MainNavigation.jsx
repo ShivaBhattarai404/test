@@ -8,24 +8,33 @@ import Modal from "../UI/Modal/Modal";
 import { IoAddCircleOutline, IoHomeSharp } from "react-icons/io5";
 import { IoMdCalculator } from "react-icons/io";
 
+function formatText(text) {
+  return text[0].toUpperCase() + text.slice(1);
+}
+
 const MainNavigation = () => {
   const [modal, setModal] = useState(null);
   const navigate = useNavigate();
 
   const username = localStorage.getItem("username");
 
-  const logoutHandler = () =>{
+  const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
     navigate("/login");
-  }
-  const logoutBtnClickHandler = (e) =>{
-    setModal(true)
-  }
+  };
+  const logoutBtnClickHandler = (e) => {
+    setModal(true);
+  };
   return (
     <nav className={classes.nav}>
       {modal && (
-        <Modal title="Confirmation" confirmText="Logout" onConfirm={logoutHandler} onCancel={setModal.bind(null, null)} >
+        <Modal
+          title="Confirmation"
+          confirmText="Logout"
+          onConfirm={logoutHandler}
+          onCancel={setModal.bind(null, null)}
+        >
           <h1>Do you want to logout?</h1>
         </Modal>
       )}
@@ -35,8 +44,10 @@ const MainNavigation = () => {
           <span>Expense Tracker App</span>
         </h1>
         <div className={classes.userBox}>
-          <div className={classes.userBox__username}>Welcome! {username}</div>
-          <Button className={classes.logoutBtn} onClick={logoutBtnClickHandler}>Logout</Button>
+          <div className={classes.userBox__username}>Welcome! {formatText(username)}</div>
+          <Button className={classes.logoutBtn} onClick={logoutBtnClickHandler}>
+            Logout
+          </Button>
         </div>
       </header>
       <ul className={classes.nav__ul}>

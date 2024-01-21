@@ -1,5 +1,5 @@
 import React from "react";
-import { json, useLoaderData } from "react-router-dom";
+import { json, redirect, useLoaderData } from "react-router-dom";
 
 import LabelComponent from "../Components/Label/Label";
 
@@ -17,6 +17,9 @@ export const loader = async ({ params }) => {
   const labelId = params.labelId;
   const token = localStorage.getItem("token");
 
+  if(!token){
+    return redirect("/login")
+  }
   try {
     const response = await fetch("http://localhost:8080/expenses/" + labelId, {
       method: "GET",
@@ -29,7 +32,7 @@ export const loader = async ({ params }) => {
       response.status === 401 ||
       response.status === 422
     ) {
-      throw json({}, { status: 400, statusText: "Invalid token" });
+      return redirect("/login")
     }
     if (response.status === 404) {
       throw json(
@@ -66,6 +69,9 @@ export const action = async ({ params, request: req }) => {
   const token = localStorage.getItem("token");
   const labelId = params.labelId;
 
+  if(!token){
+    return redirect("/login")
+  }
   try {
     const response = await fetch("http://localhost:8080/expense", {
       method: "PUT",

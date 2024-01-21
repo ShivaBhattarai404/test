@@ -24,7 +24,7 @@ exports.addExpense = async (req, res, next) => {
   const validationErrors = validationResult(req);
   if (!validationErrors.isEmpty()) {
     const error = new Error("Validation Error");
-    error.status = 403;
+    error.status = 422;
     error.data = validationErrors.array().map((err) => err.msg);
     return next(error);
   }
