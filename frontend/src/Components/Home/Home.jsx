@@ -9,7 +9,7 @@ const Label = (props) => {
   return (
     <Card className={classes.card}>
       <Link to={`/label/${props.id}`}>
-        <div className={classes.card__title}>{props.name}</div>
+        <div className={classes.card__title} >{props.name.length > 10 ? props.name.slice(0, 10)+"..." : props.name}</div>
         <div className={classes.card__deposit}>
           Deposit: Rs {props.budget}/-
         </div>

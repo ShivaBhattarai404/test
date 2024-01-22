@@ -13,11 +13,11 @@
 }
 .btn.animated:hover {
   box-shadow: 0 3px 5px #888;
-  transform: translateY(-3px);
+  translate: 0 -3px;
 }
 .btn.animated:active {
   box-shadow: 0 0 3px #888;
-  transform: translateY(-1px);
+  translate: 0 -1px;
 }
 .btn.danger {
   background-color: rgb(255, 0, 0);

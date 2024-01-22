@@ -51,11 +51,32 @@
 .logoutBtn:active{
     scale: 1;
 }
+.nav__ul .nav__ul__logoutBtn{
+    display: none;
+}
+.nav__header__menuBtn{
+    position: absolute;
+    top: 35%;
+    left: 4%;
+    font-size: 1.8rem;
+    color: rgb(165, 216, 255);
+    cursor: pointer;
+    display: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
+.nav__header__menuBtn svg{
+    transform: rotate(-90deg);
+    transition: .4s ease;
+}
+.nav__header__menuBtn.clicked svg{
+    transform: rotate(90deg);
+}
 
 
 
 .nav__ul{
-    width: 20rem;
+    width: 17rem;
     height: 100vh;
     position: fixed;
     top: 50px;
@@ -79,6 +100,7 @@
     width: 100%;
     height: 3rem;
     padding: 10px;
+    padding-top: 12px;
     border-radius: 4px;
     margin: 0.5rem 0;
 }
@@ -87,7 +109,7 @@
     width: 100%;
     height: 100%;
 }
-.nav__ul li a > *{
+.nav__ul a > *{
     vertical-align: middle;
 }
 .nav__ul li a span{
@@ -96,6 +118,92 @@
 .nav__ul li a svg{
     color: rgb(165, 216, 255);
 }
-.nav__ul li:hover{
-    background-color: rgb(37, 38, 43);
+.nav__ul a:hover li,
+.nav__ul a:active li{
+    background-color: #454545;
+}
+.nav__ul a.active li{
+    background-color: rgb(120, 120, 255);
+    color: #fff;
+}
+.nav__ul a.active li *{
+    color: #fff;
+}
+
+@media (max-width: 1000px){
+    .nav__ul{
+        width: 15rem;
+    }
+}
+@media (max-width: 800px) {
+    .nav__ul{
+        width: 5rem;
+        transition: width .2s ease-in-out;
+    }
+    .nav__ul li{
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1.2rem;
+    }
+    .nav__ul.clicked{
+        width: 15rem;
+    }
+    .nav__ul.clicked li{
+        text-align: left;
+    }
+    .nav__ul li span{
+        display: none;
+        opacity: 0;
+        transition: .2s ease-in-out;
+    }
+    .nav__ul.clicked li span{
+        display: inline;
+        opacity: 1;
+    }
+
+    .nav__header{
+        justify-content: center;
+    }
+    .nav__header h1 *{
+        font-size: 1.5rem;
+    }
+    .nav__header .userBox{
+        display: none;
+    }
+    .nav__header__menuBtn,
+    .nav__ul .nav__ul__logoutBtn{
+        display: block;
+    }
+}
+
+@media (max-width: 400px){
+    .nav__header h1{
+        margin: 0;
+    }
+    .nav__header h1 *{
+        font-size: 1rem;
+    }
+    .nav__header{
+        height: 3rem;
+    }
+    .nav__header__menuBtn{
+        top: 120%;
+        left: 1.3rem;
+        font-size: 1.3rem;
+    }
+    .nav__ul{
+        width: 4rem;
+    }
+    .nav__ul li{
+        font-size: 0.8rem;
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0;
+    }
+    .nav__ul.clicked li{
+        padding-left: 0.5rem;
+    }
+    .nav__ul.clicked{
+        width: 10rem;
+    }
 }

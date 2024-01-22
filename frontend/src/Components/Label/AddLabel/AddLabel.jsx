@@ -86,7 +86,7 @@ const AddLabel = ({ id, name, budget, error }) => {
         action={formAction}
       >
         <Input
-          className={classes.formLabelName}
+          className={classes.form__input}
           name="labelName"
           title="Label Name"
           required="true"
@@ -97,6 +97,7 @@ const AddLabel = ({ id, name, budget, error }) => {
           onBlur={(e) => dispatch({ type: "name", payload: e.target.value })}
         />
         <Input
+          className={classes.form__input}
           title="Budget"
           required="true"
           name="labelBudget"

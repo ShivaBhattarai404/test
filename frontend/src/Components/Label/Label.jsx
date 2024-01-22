@@ -302,7 +302,7 @@ const Label = (props) => {
 
       {/* Label Header starts */}
       <div className={classes.heading}>
-        <h1>{props.label.name}</h1>
+        <h1 className={classes.labelname}>{props.label.name}</h1>
         <div className={classes.heading__btnWrapper}>
           <Button
             className={classes["heading__btn--edit"]}
@@ -330,13 +330,13 @@ const Label = (props) => {
       <Card className={classes.card}>
         <div className={classes.card__title}>Budget</div>
         <div className={classes.card__deposit}>
-          Deposit: Rs {props.label.budget}/-
+          <span>Deposit: </span>Rs {props.label.budget}/-
         </div>
       </Card>
       <Card className={classes.card}>
         <div className={classes.card__title}>Expenses</div>
         <div className={classes.card__expenses}>
-          Expenses: Rs {totalExpenseAmount}/-
+          <span>Expenses: </span>Rs {totalExpenseAmount}/-
         </div>
       </Card>
       <Button
