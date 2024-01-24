@@ -42,6 +42,7 @@
 
 .modal__title {
   color: #ddd;
+  text-align: center;
   letter-spacing: 1px;
   word-spacing: 3px;
   line-height: 1.55;
@@ -72,7 +73,7 @@
 }
 
 .modal__content {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   margin-bottom: 3rem;
   height: fit-content;
   height: 15rem;
@@ -80,6 +81,8 @@
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding: 0 0.1rem;
+  font-size: 1.2em;
 }
 .modal__content::-webkit-scrollbar {
   display: none;
@@ -95,7 +98,7 @@
     height: 50vh;
     min-height: 15rem;
 
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .modal__btnWrapper button {
@@ -104,10 +107,19 @@
 }
 
 @media (max-width: 400px) {
+  .modal__title{
+    font-size: 0.8rem;
+    word-spacing: unset;
+  }
   .modal {
     font-size: 0.55rem;
     height: 40vh;
     min-height: 12rem;
+    padding: 0.5rem;
+  }
+  .modal__content{
+    margin-top: 0;
+    font-size: 0.8rem;
   }
   .modal__btnWrapper {
     flex-wrap: wrap;

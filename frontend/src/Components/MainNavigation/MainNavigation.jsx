@@ -8,7 +8,7 @@ import Modal from "../UI/Modal/Modal";
 import { IoHomeSharp } from "react-icons/io5";
 import { AiFillFileAdd } from "react-icons/ai";
 import { IoMdCalculator, IoMdLogOut } from "react-icons/io";
-import { MdOutlineExpandCircleDown } from "react-icons/md";
+import { MdOutlineExpandCircleDown, MdAccountCircle } from "react-icons/md";
 
 function formatText(text) {
   return text[0].toUpperCase() + text.slice(1);
@@ -24,6 +24,7 @@ const MainNavigation = () => {
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
+    localStorage.removeItem("username");
     navigate("/login");
   };
   const logoutBtnClickHandler = (e) => {
@@ -42,7 +43,14 @@ const MainNavigation = () => {
         </Modal>
       )}
       <header className={classes.nav__header}>
-        <div className={`${classes.nav__header__menuBtn} ${expandNav ? classes.clicked : ""}`} onClick={()=>{setExpandNav(prevState => !prevState)}}>
+        <div
+          className={`${classes.nav__header__menuBtn} ${
+            expandNav ? classes.clicked : ""
+          }`}
+          onClick={() => {
+            setExpandNav((prevState) => !prevState);
+          }}
+        >
           <MdOutlineExpandCircleDown />
         </div>
         <h1>
@@ -59,30 +67,43 @@ const MainNavigation = () => {
         </div>
       </header>
       <ul className={`${classes.nav__ul} ${expandNav ? classes.clicked : ""}`}>
-        <NavLink to="/" className={({ isActive }) => (isActive ? classes.active : "")}>
-          <li>
-            <a href="/">
-              <IoHomeSharp />
-              <span>Home</span>
-            </a>
-          </li>
-        </NavLink>
-
-        <NavLink to="/new" className={({ isActive }) => (isActive ? classes.active : "")}>
-          <li>
-            <a href="/new">
-              <AiFillFileAdd />
-              <span>Add a Label</span>
-            </a>
-          </li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? classes.active : "")}
+          >
+            <IoHomeSharp />
+            <span>Home</span>
+          </NavLink>
+        </li>
 
         <li>
-        <NavLink className={classes.nav__ul__logoutBtn} onClick={logoutBtnClickHandler}>
-              <IoMdLogOut />
-              <span>Logout</span>
-        </NavLink>
-          </li>
+          <NavLink
+            to="/new"
+            className={({ isActive }) => (isActive ? classes.active : "")}
+          >
+            <AiFillFileAdd />
+            <span>Add a Label</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => (isActive ? classes.active : "")}
+          >
+            <MdAccountCircle />
+            <span>Profile</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={classes.nav__ul__logoutBtn}
+            onClick={logoutBtnClickHandler}
+          >
+            <IoMdLogOut />
+            <span>Logout</span>
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

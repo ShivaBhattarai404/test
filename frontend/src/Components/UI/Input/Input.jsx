@@ -16,7 +16,9 @@ const Input = (props) => {
         ) : (
           ""
         )}
-        {props.invalidText && <span className={classes.invalidText}> ({props.invalidText})</span>}
+        {props.invalidText && (
+          <span className={classes.invalidText}> ({props.invalidText})</span>
+        )}
       </label>
       <input
         className={props.invalid === true ? classes.invalid : ""}
@@ -27,6 +29,7 @@ const Input = (props) => {
         value={props.value || ""}
         onChange={props.onChange}
         onBlur={props.onBlur}
+        autoComplete={props.autoComplete || "on"}
       />
     </div>
   );

@@ -39,12 +39,6 @@ const reducer = (state, { type, payload }) => {
     case "name":
       invalidText = !payload.length ? "Name can't be empty" : null;
       return { ...state, name: { value: payload, invalidText, touched: true } };
-    case "username":
-      invalidText = !payload.length ? "Username can't be empty" : null;
-      return {
-        ...state,
-        username: { value: payload, invalidText, touched: true },
-      };
     case "email":
       invalidText =
         payload &&
@@ -91,8 +85,6 @@ const Login = ({ mode, error }) => {
   const isSignUpFormValid =
     !state.name.invalidText &&
     state.name.touched &&
-    !state.username.invalidText &&
-    state.username.touched &&
     !state.email.invalidText &&
     state.email.touched &&
     !state.password.invalidText &&
@@ -134,8 +126,7 @@ const Login = ({ mode, error }) => {
           action={mode === "signup" ? "/signup" : "/login"}
           noValidate={true}
         >
-          {mode === "signup" && (
-            <>
+          {mode === "signup" && 
               <Input
                 title="Name"
                 type="text"
@@ -150,22 +141,7 @@ const Login = ({ mode, error }) => {
                   dispatch({ type: "name", payload: e.target.value })
                 }
               />
-              <Input
-                title="Username"
-                type="text"
-                name="username"
-                invalid={state.username.invalidText && state.username.touched}
-                invalidText={state.username.invalidText}
-                value={state.username.value}
-                onChange={(e) =>
-                  dispatch({ type: "username", payload: e.target.value })
-                }
-                onBlur={(e) =>
-                  dispatch({ type: "username", payload: e.target.value })
-                }
-              />
-            </>
-          )}
+          }
           <Input
             title="Email"
             type="email"
@@ -210,7 +186,7 @@ const Login = ({ mode, error }) => {
               }
             />
           )}
-          <Button type="submit" disabled={!isFormValid} variant="form">
+          <Button type="submit" disabled={!isFormValid || navigation.state === "submitting"} variant="form">
             {navigation.state === "submitting" ? "Submitting" : submitText}
           </Button>
         </Form>

@@ -6,6 +6,7 @@ import NewLabel, { action as newLabelAction, loader as addLabelLoader } from "./
 import Label, { action as labelAction, loader as labelLoader } from "./Pages/Label";
 import Login, { action as loginAction } from "./Pages/Login";
 import SignUp, { action as signUpAction } from "./Pages/Signup";
+import Profile from "./Pages/Profile";
 
 function App() {
   const routes = createBrowserRouter([
@@ -39,6 +40,10 @@ function App() {
           element: <Label />,
           action: labelAction,
           loader: labelLoader,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
         },
       ],
     },

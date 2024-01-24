@@ -140,6 +140,7 @@ const Label = (props) => {
     }
   };
   const addExpenseCanceler = () => {
+    dispatch({type: "reset"})
     setDisplayAddExpenseModal(false);
   };
 
@@ -239,6 +240,7 @@ const Label = (props) => {
         <Modal
           title="Add an Expense"
           confirmText="Save"
+          submitable={true}
           onConfirm={addExpenseHandler}
           onCancel={addExpenseCanceler}
         >

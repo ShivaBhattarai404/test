@@ -3,6 +3,8 @@ const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 const User = require("../Model/User");
+const Expenses = require("../Model/Expenses");
+const Labels = require("../Model/Labels");
 
 exports.login = async (req, res, next) => {
   const validationErrors = validationResult(req);
@@ -14,7 +16,6 @@ exports.login = async (req, res, next) => {
     return next(error);
   }
 
-  const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
 
@@ -40,7 +41,13 @@ exports.login = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: "Login Successfull", token, email: user.email, username: user.name });
+      .json({
+        message: "Login Successfull",
+        token,
+        email: user.email,
+        username: user.name,
+        userId: user._id,
+      });
   } catch (error) {
     return next(error);
   }
@@ -84,3 +91,43 @@ exports.signUp = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.deleteAccount = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.userId).populate("labels");
+    const password = req.body.password;
+    const isPasswordSame = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordSame) {
+      const error = new Error("Incorrect password");
+      error.status = 401;
+      return next(error);
+    }
+
+    const userLabels = user.labels;
+    const userLabelsId = userLabels.map((label) => label._id);
+    const userExpensesId = []
+    userLabels.map((label) => userExpensesId.push(...label.expenses));
+
+    // delete all expenses related to label made by user
+    await Expenses.deleteMany({ _id: { $in: userExpensesId } });
+
+    // delete all labels made by user
+    await Labels.deleteMany({ _id: { $in: userLabelsId } });
+
+    // delete user
+    const deletedUser = await User.deleteOne({ _id: req.userId });
+    res.status(200).json({ msg: "Account Deleted"});
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getDetails = async (req, res, next)=>{
+  try {
+    const user = await User.findById(req.userId);
+    res.status(200).json({name: user.name, email: user.email})
+  } catch (error) {
+    next(error)
+  }
+}

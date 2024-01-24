@@ -1,0 +1,55 @@
+.section {
+  font-size: 1rem;
+}
+.table {
+  width: 80%;
+  height: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+.table caption {
+  margin: 1em 0;
+  font-size: 2em;
+}
+.table tr {
+  font-size: 1.2em;
+  width: 100%;
+  padding-right: 0.5rem;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.table th {
+  padding: 0.2em 0.5em;
+}
+.table tr:nth-child(2n) {
+  background-color: #2f2f2f;
+}
+.deleteAccountBtn {
+  margin: 5em 1em;
+  bottom: 5em;
+  font-size: 1.2em;
+}
+.deleteAccountBtn *{
+    vertical-align: middle;
+}
+
+@media (max-width: 800px) {
+  .section {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .table {
+    width: 70%;
+  }
+}
+@media (max-width: 400px) {
+  .table {
+    margin-left: 1rem;
+  }
+}

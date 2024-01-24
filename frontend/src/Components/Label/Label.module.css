@@ -104,12 +104,10 @@
   color: rgb(255, 135, 135);
 }
 
-
 .section .addExpenseBtn {
   display: block;
   margin: 1rem 0;
-  margin-left: 40%;
-  transform: translateX(-50%);
+  margin-left: 27%;
   font-size: 1.2rem;
   padding: 0.8em 2.8rem;
 }
@@ -191,9 +189,8 @@
   margin: 0 5px;
 }
 
-
 @media (max-width: 1000px) {
-  .card{
+  .card {
     height: 12rem;
   }
   .card:nth-of-type(2) {
@@ -207,117 +204,118 @@
   .card__expenses {
     font-size: 1.5rem;
   }
-  .balance{
+  .balance {
     font-size: 2rem;
   }
 }
-@media (max-width: 800px){
-  .section{
+@media (max-width: 800px) {
+  .section {
     padding-left: 0.5rem;
   }
-  .balance{
+  .balance {
     font-size: 1.5rem;
   }
-  .heading__btnWrapper{
+  .heading__btnWrapper {
     width: 15rem;
   }
-  .section .addExpenseBtn{
+  .section .addExpenseBtn {
     font-size: 1.1rem;
     padding: 0.8rem 2rem;
   }
 }
-@media (max-width: 600px){
-  .heading{
+@media (max-width: 600px) {
+  .heading {
     flex-direction: column;
   }
-  .section .labelname{
+  .section .labelname {
     font-size: 2rem;
   }
-  .heading__btnWrapper{
+  .heading__btnWrapper {
     margin-top: 1rem;
     width: auto;
   }
   .heading__btn--edit,
-  .heading__btn--delete{
+  .heading__btn--delete {
     font-size: 16px;
     margin: 0 3px 0 10px;
     padding: 0.4rem 5px;
   }
-  .balance{
+  .balance {
     font-size: 1.4rem;
     text-align: center;
   }
-  .section .card{
+  .section .card {
     margin: 2rem auto;
     display: block;
   }
-  .card__title{margin-top: 1.5rem;
+  .card__title {
+    margin-top: 1.5rem;
     font-size: 2rem;
   }
   .card__deposit,
-  .card__expenses{
+  .card__expenses {
     font-size: 1.4rem;
   }
-  .section .addExpenseBtn{
+  .section .addExpenseBtn {
     margin: auto;
     margin-top: 4rem;
     transform: none;
     font-size: 0.9rem;
     padding: 0.6rem 1.5rem;
   }
-  .history__title{
+  .history__title {
     font-size: 1.2rem;
   }
   .history__item__name,
-  .history__item__amount{
+  .history__item__amount {
     font-size: 1rem;
   }
 }
-@media (max-width: 400px){
-  .heading{
+@media (max-width: 400px) {
+  .heading {
     margin-bottom: 1.5rem;
   }
-  .section .labelname{
+  .section .labelname {
     font-size: 1.5rem;
   }
   .heading__btn--edit,
-  .heading__btn--delete{
+  .heading__btn--delete {
     font-size: 0.8rem;
   }
-  .balance{
+  .balance {
     font-size: 1.2rem;
   }
-  .section .card{
+  .section .card {
     width: 90%;
     height: 8rem;
     min-width: unset;
     max-width: 12rem;
   }
-  .card__title{
+  .card__title {
     margin-top: 0;
     font-size: 1.6rem;
   }
   .card__deposit,
-  .card__expenses{
+  .card__expenses {
     font-size: 1.2rem;
   }
   .card__deposit span,
-  .card__expenses span{
+  .card__expenses span {
     display: none;
   }
-  
-  .section .addExpenseBtn{
+
+  .section .addExpenseBtn {
     font-size: 0.8rem;
     padding: 0.6rem 0.8rem;
   }
-  .history__title{
+  .history__title {
     font-size: 1rem;
   }
-  .history__item{
+  .history__item {
     height: 2.4rem;
   }
   .history__item__name,
-  .history__item__amount{
+  .history__item__amount {
     font-size: 0.8rem;
   }
 }

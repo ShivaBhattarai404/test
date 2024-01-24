@@ -9,7 +9,11 @@ const Label = (props) => {
   return (
     <Card className={classes.card}>
       <Link to={`/label/${props.id}`}>
-        <div className={classes.card__title} >{props.name.length > 10 ? props.name.slice(0, 10)+"..." : props.name}</div>
+        <div className={classes.card__title}>
+          {props.name.length > 10
+            ? props.name.slice(0, 10) + "..."
+            : props.name}
+        </div>
         <div className={classes.card__deposit}>
           Deposit: Rs {props.budget}/-
         </div>
@@ -24,9 +28,10 @@ const Home = (props) => {
   return (
     <div className={classes.home}>
       <h1>Months</h1>
-      <div className={classes.labelWrapper}>
-        {props.labels.length > 0 ? (
-          props.labels.map((label) => (
+
+      {props.labels.length > 0 ? (
+        <div className={classes.labelWrapper}>
+          {props.labels.map((label) => (
             <Label
               key={label._id}
               id={label._id}
@@ -35,11 +40,11 @@ const Home = (props) => {
               expenses={label.expenses}
               totalExpense={label.totalExpense || 0}
             />
-          ))
-        ) : (
-          <h1>No Labels Found</h1>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <h1>No Labels Found</h1>
+      )}
     </div>
   );
 };

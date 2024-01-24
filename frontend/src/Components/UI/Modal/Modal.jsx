@@ -1,6 +1,5 @@
 import { Fragment, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Form } from "react-router-dom";
 
 import classes from "./Modal.module.css";
 import Button from "../Button/Button";
@@ -17,17 +16,18 @@ const Backdrop = (props) => {
 
 const ModalBox = (props) => {
   const formRef = useRef();
-  const okClickHandler = () => {
-    props.submitable && formRef.current.requestSubmit();
+  const okClickHandler = (e) => {
+    e.preventDefault();
     props.onConfirm?.();
   };
   return (
     <div className={classes.modal}>
       <div className={classes.modal__title}>{props.title}</div>
-      {props.submitable === "true" ? (
-        <Form ref={formRef} className={classes.modal__content} method="POST">
+      {props.submitable ? (
+        <form ref={formRef} className={classes.modal__content} onSubmit={okClickHandler} >
+          <button type="submit" hidden={true}/>
           {props.content}
-        </Form>
+        </form>
       ) : (
         <div className={classes.modal__content}>{props.content}</div>
       )}
@@ -49,6 +49,7 @@ const ModalBox = (props) => {
             borderColor: props.confirmColor,
           }}
           onClick={okClickHandler}
+          focus={true}
         >
           {props.confirmText}
         </Button>
