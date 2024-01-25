@@ -23,7 +23,7 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ email: email });
     if (!user) {
       const error = new Error("Incorrect email");
-      error.status = 401;
+      error.status = 404;
       return next(error);
     }
     const isPasswordSame = await bcrypt.compare(password, user.password);
