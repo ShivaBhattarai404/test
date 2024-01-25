@@ -1,6 +1,8 @@
 import React from "react";
-import Login from "../Components/Login/Login";
 import { json, redirect, useActionData } from "react-router-dom";
+
+import Login from "../Components/Login/Login";
+import { API_BASE_URL } from "../config";
 
 const Signup = () => {
   const errors = useActionData();
@@ -14,7 +16,7 @@ export const action = async ({ params, request }) => {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    const response = await fetch("http://localhost:8080/signup", {
+    const response = await fetch(`${API_BASE_URL}/signup`, {
       method: request.method,
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +36,7 @@ export const action = async ({ params, request }) => {
     }
     return redirect("/login");
   } catch (error) {
-    console.log(error);
+    return json(({message: "Account Creation failed"}));
   }
 };
 

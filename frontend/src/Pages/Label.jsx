@@ -1,6 +1,7 @@
 import React from "react";
 import { json, redirect, useLoaderData } from "react-router-dom";
 
+import { API_BASE_URL } from "../config";
 import LabelComponent from "../Components/Label/Label";
 
 const Label = () => {
@@ -8,7 +9,7 @@ const Label = () => {
   return (
     <LabelComponent
       expenses={data.expenses}
-      label={data.label}
+      label={data.label || {name: "", id: ""}}
     />
   );
 };
@@ -21,7 +22,7 @@ export const loader = async ({ params }) => {
     return redirect("/login")
   }
   try {
-    const response = await fetch("http://localhost:8080/expenses/" + labelId, {
+    const response = await fetch(`${API_BASE_URL}/expenses/${labelId}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,
@@ -73,7 +74,7 @@ export const action = async ({ params, request: req }) => {
     return redirect("/login")
   }
   try {
-    const response = await fetch("http://localhost:8080/expense", {
+    const response = await fetch(`${API_BASE_URL}/expense`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

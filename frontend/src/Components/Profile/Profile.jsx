@@ -3,6 +3,7 @@ import classes from "./Profile.module.css";
 
 import { MdDeleteForever } from "react-icons/md";
 
+import { API_BASE_URL } from "../../config";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
 import Input from "../UI/Input/Input";
@@ -26,7 +27,7 @@ const Profile = ({ name, email }) => {
     if (!token || !userId) {
       return navigate("/login");
     }
-    fetch("http://localhost:8080/account", {
+    fetch(`${API_BASE_URL}/account`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +59,7 @@ const Profile = ({ name, email }) => {
     setEnteredPassword(e.target.value);
   };
   const deleteAccountBtnClickHandler = () => {
-    fetch("http://localhost:8080/account", {
+    fetch(`${API_BASE_URL}/account`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +70,6 @@ const Profile = ({ name, email }) => {
       }),
     })
       .then((response) => {
-        console.log(response);
         if (response.status === 401) {
           return setError("Incorrect Password");
         }

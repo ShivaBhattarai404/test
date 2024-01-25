@@ -1,6 +1,8 @@
 import React from "react";
-import HomeComponent from "../Components/Home/Home";
 import { json, useLoaderData } from "react-router-dom";
+
+import { API_BASE_URL } from "../config";
+import HomeComponent from "../Components/Home/Home";
 
 const Home = () => {
   const data = useLoaderData();
@@ -12,7 +14,7 @@ export const loader = async () => {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch("http://localhost:8080/labels", {
+    const response = await fetch(`${API_BASE_URL}/labels`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "bearer " + token,

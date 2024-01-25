@@ -1,4 +1,6 @@
 import { json, redirect, useActionData, useRouteLoaderData } from "react-router-dom";
+
+import { API_BASE_URL } from "../config";
 import AddLabel from "../Components/Label/AddLabel/AddLabel";
 
 const NewLabel = () => {
@@ -24,7 +26,7 @@ export const loader = async ({ params, request: req }) => {
     return redirect("/login")
   }
   try {
-    const reponse = await fetch("http://localhost:8080/label/" + labelId, {
+    const reponse = await fetch(`${API_BASE_URL}/label/${labelId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +50,7 @@ export const action = async ({ params, request }) => {
     return redirect("/login");
   }
   try {
-    const response = await fetch("http://localhost:8080/label", {
+    const response = await fetch(`${API_BASE_URL}/label`, {
       method: request.method,
       headers: {
         "Content-Type": "application/json",

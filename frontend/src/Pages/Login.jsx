@@ -1,6 +1,8 @@
 import React from "react";
-import LoginComponent from "../Components/Login/Login";
 import { json, redirect, useActionData } from "react-router-dom";
+
+import LoginComponent from "../Components/Login/Login";
+import { API_BASE_URL } from "../config";
 
 const Login = () => {
   const errorData = useActionData()
@@ -12,8 +14,7 @@ export const action = async ({ params, request: req }) => {
     const formData = await req.formData();
     const email = formData.get("email");
     const password = formData.get("password");
-
-    const response = await fetch("http://localhost:8080/login", {
+    const response = await fetch(`${API_BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,6 +24,9 @@ export const action = async ({ params, request: req }) => {
         password: password,
       }),
     });
+    if(response.status === 404){
+      return json({message: "Email doesnot exists", status: 401})
+    }
     if(response.status === 401){
       return json({message: "Incorrect email or password", status: 401})
     }
@@ -37,7 +41,7 @@ export const action = async ({ params, request: req }) => {
     const expiryDate = new Date();
     expiryDate.setHours(new Date().getHours() + 1);
     localStorage.setItem("expiryDate", expiryDate.toISOString());
-
+    
     return redirect("/");
   } catch (error) {
     throw error;

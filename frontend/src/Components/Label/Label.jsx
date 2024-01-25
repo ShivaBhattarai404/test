@@ -7,6 +7,7 @@ import { MdEdit } from "react-icons/md";
 
 import classes from "./Label.module.css";
 
+import { API_BASE_URL } from "../../config";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
@@ -58,7 +59,7 @@ const reducer = (state, { type, payload }) => {
 };
 
 const Label = (props) => {
-  const [transactions, setTransactions] = useState(props.expenses);
+  const [transactions, setTransactions] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [displayAddExpenseModal, setDisplayAddExpenseModal] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -68,14 +69,13 @@ const Label = (props) => {
   const submit = useSubmit();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-
   const totalExpenseAmount = transactions.reduce(
     (amount, expense) => amount + expense.amount,
     0
   );
 
   useEffect(() => {
-    setTransactions(props.expenses);
+    setTransactions(props.expenses || []);
   }, [props.expenses]);
   const transactionClickHandler = (transaction) => {
     setDisplayModal(true);
@@ -87,7 +87,7 @@ const Label = (props) => {
   };
   const deleteTransactionHandler = ({ _id: id }) => {
     // delete transaction from database
-    fetch("http://localhost:8080/expense", {
+    fetch(`${API_BASE_URL}/expense`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -153,7 +153,7 @@ const Label = (props) => {
     if (!props.label.id) {
       return setErrors({ status: 401, message: "Invalid Label Id" });
     }
-    fetch("http://localhost:8080/label", {
+    fetch(`${API_BASE_URL}/label`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
