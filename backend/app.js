@@ -22,6 +22,9 @@ app.use(bodyParser.json());
 app.use(userRoutes);
 app.use(expensesRoutes);
 
+app.use("/", (req, res)=>{
+  res.status(200).json({message: "Hello from the server"})
+})
 app.use((req, res)=>{
   res.status(404).json({message: "Requested URL not found on the server"});
 })
@@ -34,11 +37,13 @@ app.use((err, req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb://127.0.0.1/expensesTracker")
+  .connect(`${process.env.MONGODB_URI}` || "mongodb://127.0.0.1/expensesTracker")
   .then((result) => {
-    app.listen(8080);
+    app.listen(process.env.PORT);
   })
   .catch((err) => {
     console.log(err.message);
     console.log("Connection to the database failed");
   });
+  
+export default app;
