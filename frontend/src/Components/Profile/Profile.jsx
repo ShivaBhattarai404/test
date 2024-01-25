@@ -21,10 +21,9 @@ const Profile = ({ name, email }) => {
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
 
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    if (!token || !userId) {
+    if (!token) {
       return navigate("/login");
     }
     fetch(`${API_BASE_URL}/account`, {
