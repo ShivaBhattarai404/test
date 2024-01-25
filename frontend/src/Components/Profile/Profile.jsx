@@ -52,7 +52,7 @@ const Profile = ({ name, email }) => {
           "Some server error occured. Try logging out and logging in back"
         );
       });
-  }, [token, userId, navigate]);
+  }, [token, navigate]);
 
   const passwordChangeHandler = (e) => {
     setEnteredPassword(e.target.value);
