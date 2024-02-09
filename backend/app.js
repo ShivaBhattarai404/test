@@ -1,11 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const config = require('dotenv').config()
 
 const userRoutes = require("./routes/user");
 const expensesRoutes = require("./routes/expenses");
 
+const data1 = require("./data/Users.json");
+const data2 = require("./data/Labels.json");
+const data3 = require("./data/Expenses.json");
+console.log(typeof(data1), typeof(data2), typeof(data3));
 const app = express();
 
 app.use((req, res, next) => {
@@ -25,8 +28,8 @@ app.use(userRoutes);
 app.use(expensesRoutes);
 
 
-app.use("/", (req, res)=>{
-  res.status(200).json({message: "Hello from the server"})
+app.get("/", (req, res)=>{
+  res.status(200).json({message: `Hello from the server`})
 })
 
 
@@ -41,15 +44,6 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message, data });
 });
 
-mongoose
-.connect(`${process.env.MONGODB_URI}` || "mongodb://127.0.0.1/expensesTracker")
-.then((result) => {
-  app.listen(process.env.PORT);
-})
-.catch((err) => {
-    console.log(err.message);
-    console.log("Connection to the database failed");
-  });
-  
+// app.listen(process.env.PORT);  
 
 module.exports = app;

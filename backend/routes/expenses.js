@@ -30,6 +30,13 @@ router.put(
   ],
   expensesController.addExpense
 );
+router.put("/multiexpenses",isAuth, hasLabel, body("multipleExpenses").custom((value, {req})=>{
+  if(value?.match(/^"?(\w+)"?\((\d+)\)(,\s*"?(\w+)"?\((\d+)\))*$/)){
+    return true;
+  }else{
+    return Promise.reject("Invalid format");
+  }
+}), expensesController.addMultipleExpenses)
 router.delete("/expense", isAuth, hasLabel, expensesController.deleteExpense);
 
 router.get("/labels", isAuth, labelController.getLabels);
@@ -58,10 +65,8 @@ router.patch(
   [
     body("name").not().isEmpty().withMessage("Label name should not be empty"),
     body("budget")
-      .isNumeric()
-      .withMessage("Label budget should be a numeric value")
       .custom((value, { req }) => {
-        if (value < 0) {
+        if (value && value < 0) {
           return Promise.reject("Label budget should not be negative");
         }
         return true;

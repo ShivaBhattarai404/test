@@ -21,7 +21,7 @@ exports.getLabel = async (req, res, next) => {
 
 exports.getLabels = async (req, res, next) => {
   try {
-    const user = await User.findById(req.userId).populate("labels");
+    const user = await User.findByIdAndPopulate(req.userId);
     res.status(200).json({ message: "Labels Found", labels: user.labels });
   } catch (error) {
     return next(error);
@@ -49,7 +49,7 @@ exports.addLabel = async (req, res, next) => {
     const label = await newLabel.save();
     const user = await User.findById(req.userId);
     user.labels.push(label._id);
-    await user.save();
+    await User.update(user);
 
     res.status(201).json({ message: "Label added", addedLabel: label });
   } catch (error) {
@@ -66,12 +66,15 @@ exports.editLabel = async (req, res, next) => {
     return next(error);
   }
   const name = req.body.name;
-  const budget = req.body.budget;
+  let budget = +(req.body.budget);
+  if(isNaN(budget)){
+    budget = req.label.budget;
+  }
 
   try {
     req.label.name = name || req.label.name;
     req.label.budget = budget || req.label.budget;
-    const updatedLabel = await req.label.save();
+    const updatedLabel = await Label.update(req.label);
     res
       .status(201)
       .json({ message: "Label Updated Successfully", label: updatedLabel });
@@ -86,13 +89,14 @@ exports.deleteLabel = async (req, res, next) => {
   const labelId = req.label._id;
 
   try {
+    const labelToBeDeleted = await Label.findById(labelId);
     // delete expenses of that label
-    await Expenses.deleteMany({ label: labelId });
+    await Expenses.deleteManyById(labelToBeDeleted.expenses);
 
     // delete label from user record
     const user = await User.findById(req.userId);
-    user.labels = user.labels.filter((label) => label.toString() !== labelId.toString());
-    await user.save();
+    user.labels = user.labels.filter((label) => label !== labelId);
+    await User.update(user);
 
     // delete label from label collection
     const label = await Label.findByIdAndDelete(labelId);

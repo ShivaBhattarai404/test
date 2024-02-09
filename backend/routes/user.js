@@ -43,6 +43,14 @@ router.put(
 );
 
 router.get("/account", isAuth, userController.getDetails);
-router.delete("/account", isAuth,  userController.deleteAccount);
+router.delete(
+  "/account",
+  isAuth,
+  body("password")
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage("Password should be 6 characters long"),
+  userController.deleteAccount
+);
 
 module.exports = router;

@@ -8,7 +8,6 @@ const Labels = require("../Model/Labels");
 
 exports.login = async (req, res, next) => {
   const validationErrors = validationResult(req);
-
   if (!validationErrors.isEmpty()) {
     const error = new Error("Invalid credientials");
     error.status = 422;
@@ -39,15 +38,13 @@ exports.login = async (req, res, next) => {
       { expiresIn: "1h" }
     );
 
-    res
-      .status(200)
-      .json({
-        message: "Login Successfull",
-        token,
-        email: user.email,
-        username: user.name,
-        userId: user._id,
-      });
+    res.status(200).json({
+      message: "Login Successfull",
+      token,
+      email: user.email,
+      username: user.name,
+      userId: user._id,
+    });
   } catch (error) {
     return next(error);
   }
@@ -70,7 +67,6 @@ exports.signUp = async (req, res, next) => {
   try {
     const hashedPw = await bcrypt.hash(password, 12);
     const user = new User({
-      username: name,
       name: name,
       email: email,
       password: hashedPw,
@@ -87,14 +83,20 @@ exports.signUp = async (req, res, next) => {
       },
     });
   } catch (error) {
-    console.log(error);
-    return next(error);
+    next(error);
   }
 };
 
 exports.deleteAccount = async (req, res, next) => {
+  const error = validationResult(req);
+
+  if (!error.isEmpty()) {
+    const error = new Error("Incorrect password");
+    error.status = 422;
+    return next(error);
+  }
   try {
-    const user = await User.findById(req.userId).populate("labels");
+    const user = await User.findByIdAndPopulate(req.userId);
     const password = req.body.password;
     const isPasswordSame = await bcrypt.compare(password, user.password);
 
@@ -103,31 +105,30 @@ exports.deleteAccount = async (req, res, next) => {
       error.status = 401;
       return next(error);
     }
-
     const userLabels = user.labels;
     const userLabelsId = userLabels.map((label) => label._id);
-    const userExpensesId = []
+    const userExpensesId = [];
     userLabels.map((label) => userExpensesId.push(...label.expenses));
 
     // delete all expenses related to label made by user
-    await Expenses.deleteMany({ _id: { $in: userExpensesId } });
+    await Expenses.deleteManyById(userExpensesId);
 
     // delete all labels made by user
-    await Labels.deleteMany({ _id: { $in: userLabelsId } });
+    await Labels.deleteManyById(userLabelsId);
 
     // delete user
-    const deletedUser = await User.deleteOne({ _id: req.userId });
-    res.status(200).json({ msg: "Account Deleted"});
+    const deletedUser = await User.findByIdAndDelete(req.userId);
+    res.status(200).json({ msg: "Account Deleted" });
   } catch (error) {
     next(error);
   }
 };
 
-exports.getDetails = async (req, res, next)=>{
+exports.getDetails = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
-    res.status(200).json({name: user.name, email: user.email})
+    res.status(200).json({ name: user.name, email: user.email });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
